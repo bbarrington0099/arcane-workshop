@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ------ Smithing ------
+  // --- Items ---
+    // Weapons
+
+      model Smithing_Item_Weapon {
+        id String @id @default(uuid())
+        name String @unique
+        official Boolean @default(false)
+        description String?
+        materialSlots Smithing_Material_Slot[]
+
+        type_subtypeId String
+        type_subtype Smithing_Item_Weapon_Type__Smithing_Item_Weapon_Subtype @relation(fields: [type_subtypeId], references: [id])
+      }
+
+      model Smithing_Item_Weapon_Subtype {
+        id String @id @default(uuid())
+        name String @unique
+        official Boolean @default(false)
+        description String?
+        baseCraftingDC Int
+
+        types Smithing_Item_Weapon_Type__Smithing_Item_Weapon_Subtype[]
+      }
+
+      model Smithing_Item_Weapon_Type {
+        id String @id @default(uuid())
+        name String @unique
+        official Boolean @default(false)
+        description String?
+
+        subtypes Smithing_Item_Weapon_Type__Smithing_Item_Weapon_Subtype[]
+      }
+
+      model Smithing_Item_Weapon_Type__Smithing_Item_Weapon_Subtype {
+        id String @id @default(uuid())
+        name String @unique
+        official Boolean @default(false)
+        description String?
+
+        typeId String
+        type Smithing_Item_Weapon_Type @relation(fields: [typeId], references: [id])
+
+        subtypeId String
+        subtype Smithing_Item_Weapon_Subtype @relation(fields: [subtypeId], references: [id])
+
+        weapons Smithing_Item_Weapon[]
+
+        @@index([typeId, subtypeId], name: "type_subtype_idx")
+        @@unique([typeId, subtypeId])
+      }
+
+    // /Weapons
+    // Armors
+
+      model Smithing_Item_Armor {
+        id String @id @default(uuid())
+        name String @unique
+        official Boolean @default(false)
+        description String?
+        materialSlots Smithing_Material_Slot[]
+
+        typeId String
+        type Smithing_Item_Armor_Type @relation(fields: [typeId], references: [id])
+      }
+
+      model Smithing_Item_Armor_Type {
+        id String @id @default(uuid())
+        name String @unique
+        official Boolean @default(false)
+        baseCraftingDC Int
+
+        armors Smithing_Item_Armor[]
+      }
+
+    // /Armors
+  // --- /Items ---
+  // --- Materials ---
+
+    enum Smithing_Material_Category {
+      ORE
+      LEATHER
+      HARDWOOD
+    }
+
+    model Smithing_Material {
+      id String @id @default(uuid())
+      name String @unique
+      official Boolean @default(false)
+      category Smithing_Material_Category
+      modifierDC Int @default(0)
+      cost Float @default(1.0)
+      weight Float @default(0.0)
+
+      requirements Smithing_Requirement[]
+      effects Smithing_Effect[]
+    }
+
+    model Smithing_Material_Slot {
+      id String @id @default(uuid())
+      official Boolean @default(false)
+      category Smithing_Material_Category
+      quantity Int @default(1)
+      mixable Boolean @default(false)
+
+      weapons Smithing_Item_Weapon[]
+      armors Smithing_Item_Armor[]
+
+      @@unique([category, quantity, mixable])
+    }
+
+  // --- /Materials ---
+  // --- Effects ---
+
+    enum Smithing_Effect_Category {
+      POSITIVE
+      NEGATIVE
+    }
+
+    model Smithing_Effect {
+      id String @id @default(uuid())
+      name String @unique
+      official Boolean @default(false)
+      category Smithing_Effect_Category
+      description String
+
+      materials Smithing_Material[]
+    }
+
+  // --- /Effects ---
+  // --- Requirements ---
+
+    enum Smithing_Requirement_Category {
+      KNOWLEDGE
+    }
+
+    model Smithing_Requirement {
+      id String @id @default(uuid())
+      name String @unique
+      official Boolean @default(false)
+      category Smithing_Requirement_Category
+      description String
+
+      materials Smithing_Material[]
+    }
+
+  // --- /Requirements ---
+// ------ /Smithing ------
