@@ -1,23 +1,7 @@
-type Unit = '#' | 'px' | 'em' | 'rem' | '%' | 'vh' | 'vw' | null;
-type UnitPosition = 'prefix' | 'suffix' | null;
+// type Unit = '#' | 'px' | 'em' | 'rem' | '%' | 'vh' | 'vw' | null;
+// type UnitPosition = 'prefix' | 'suffix' | null;
 
-interface StyleValue {
-    raw: string | number;
-    dressed?: string;
-}
-
-interface StyleValues {
-    [key: string]: StyleValue;
-}
-
-interface StyleExport {
-    unit: Unit;
-    unitPosition: UnitPosition;
-    stringify: boolean;
-    values: StyleValues;
-}
-
-export const styleExports: { [key: string]: StyleExport } = {
+export const styleExports = {
     colors: createStyleExport({
         unit: '#',
         unitPosition: 'prefix',
@@ -41,12 +25,7 @@ export const styleExports: { [key: string]: StyleExport } = {
     })
 };
 
-/**
- * Adds unit and formatting to each style value in the StyleExport.
- * @param styleExport The StyleExport object to process.
- * @returns The updated StyleExport with dressed values.
- */ 
-function createStyleExport(styleExport: StyleExport): StyleExport {
+function createStyleExport(styleExport) {
     for (const [key, styleValue] of Object.entries(styleExport.values)) {
         let dressedValue = '';
         dressedValue += styleExport.unit && styleExport.unitPosition === 'prefix' ? styleExport.unit : '';
@@ -55,4 +34,4 @@ function createStyleExport(styleExport: StyleExport): StyleExport {
         styleExport.values[key].dressed = styleExport.stringify ? `"${dressedValue}"` : dressedValue;
     }
     return styleExport;
-};
+}

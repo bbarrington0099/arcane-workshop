@@ -1,0 +1,30 @@
+services:
+  app:
+    container_name: arcane-workshop-dev-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+      - "51212:51212"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+
+  db:
+    container_name: arcane-workshop-dev-postgres
+    image: postgres:18.1
+    restart: always
+    env_file:
+      - .env.dev
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data_dev:

@@ -1,12 +1,8 @@
 /node_modules
-
 /.next/
-
-/build
 
 .env*
 
-*.tsbuildinfo
 next-env.d.ts
 
 /generated/prisma

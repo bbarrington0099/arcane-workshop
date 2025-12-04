@@ -1,0 +1,15 @@
+/node_modules
+/.next/
+
+.env
+.env*
+
+npm-debug.log
+dist
+
+/generated/prisma
+/prisma/migrations
+
+Dockerfile*
+docker-compose*.yml
+postgres_data_dev

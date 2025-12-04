@@ -1,4 +1,4 @@
-import { styleExports } from "../styleExports.ts";
+import { styleExports } from "../styleExports.js";
 import fs from "fs";
 
 let scss = "";

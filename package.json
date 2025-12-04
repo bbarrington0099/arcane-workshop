@@ -8,14 +8,21 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "prepare-env": "node scripts/generate-scss-styleExports.js && npx prisma db seed",
+    "prepare-env": "npx ts-node scripts/generate-scss-styleExports.js && npm run prisma:update",
     "predev": "npm run prepare-env",
     "prebuild": "npm run prepare-env",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev --name dev",
     "prisma:seed": "npx prisma db seed",
     "prisma:update": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
-    "prisma:studio": "npx prisma studio"
+    "prisma:studio": "npx prisma studio --port 51212 --browser none",
+    "docker:dev:build": "docker compose -f docker-compose.dev.yml up --build -d",
+    "docker:dev:up": "docker compose -f docker-compose.dev.yml up -d",
+    "docker:dev:logs": "docker compose -f docker-compose.dev.yml logs -f",
+    "docker:dev:exec:app": "docker exec -it arcane-workshop-dev-app",
+    "docker:dev:exec:db": "docker exec -it arcane-workshop-dev-postgres",
+    "docker:dev:down": "docker compose -f docker-compose.dev.yml down",
+    "docker:dev:clear": "docker compose -f docker-compose.dev.yml down -v"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.0.1",
