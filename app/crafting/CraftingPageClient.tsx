@@ -1,6 +1,6 @@
-"use client"
+"use client";
+
 import { usePathname } from 'next/navigation';
-import { Crafting_Category } from '@prismagen/client';
 import { enumToSlug } from '@lib/utils';
 
 import styles from './CraftingPage.module.scss';

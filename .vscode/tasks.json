@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Restart Next.js Dev Server",
+            "type": "shell",
+            "command": "curl -X POST http://localhost:3000/__nextjs_restart_dev",
+            "problemMatcher": [],
+        }
+    ]
+}

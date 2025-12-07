@@ -5,6 +5,8 @@ import CraftingPageClient from '../CraftingPageClient'
 import { Crafting_Category, Smithing_Item_Category } from '@prismagen/client'
 import { notFound } from 'next/navigation'
 import { getCraftingItemCategories } from './category_page_logic'
+import { cacheLife } from 'next/cache';
+import { CACHE_LIFE } from '@lib/db';
 
 export const generateStaticParams = async () => {
     return Object.values(Crafting_Category).map(category => ({
@@ -18,6 +20,8 @@ interface CraftingCategoryPageProps {
     }>
 }
 const CraftingCategoryPage = async (props: CraftingCategoryPageProps) => {
+    cacheLife(CACHE_LIFE);
+    
     const params = await props.params;
     const craftingCategory = slugToEnum(params.category) as Crafting_Category;
     const craftingItemCategories = getCraftingItemCategories(craftingCategory);

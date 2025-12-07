@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:restart": "curl -X POST http://localhost:3000/__nextjs_restart_dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

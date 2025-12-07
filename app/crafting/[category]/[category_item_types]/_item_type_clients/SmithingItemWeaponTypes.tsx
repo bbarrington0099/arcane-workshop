@@ -1,6 +1,10 @@
+"use cache";
+
 import * as smithingItemReadActions from '@actions/smithingItemReadActions'
 import { Smithing_Item_Weapon_Subtype } from '@prismagen/client'
 import styles from './SmithingItemWeaponTypes.module.scss'
+import { cacheLife } from 'next/cache';
+import { CACHE_LIFE } from '@lib/db';
 
 interface Relationship {
   relationshipId: string;
@@ -8,6 +12,8 @@ interface Relationship {
 }
 
 const SmithingItemWeaponTypes = async () => {
+  cacheLife(CACHE_LIFE);
+
   const relationshipsMap: { [ key: string ]: Relationship[] } = {};
   const relationshipsData = await smithingItemReadActions.getSmithingItemWeaponTypeRelationshipSmithingItemWeaponSubtypes();
 

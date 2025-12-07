@@ -1,11 +1,16 @@
 import { prisma } from "./prisma"
 import * as Prisma from '@prismagen/client';
+import { isDev } from "@/next.config";
 
 export enum CACHE_TAGS {
     SMITHING_WEAPON_TYPES = "smithing-weapon-types",
     SMITHING_WEAPON_SUBTYPES = "smithing-weapon-subtypes",
     SMITHING_WEAPON_TYPE_RELATIONSHIPS = "smithing-weapon-type-relationships",
 }
+
+export const CACHE_LIFE = isDev 
+    ? { stale: 1, revalidate: 60, expire: 3600 } 
+    : { stale: 900, revalidate: 3600, expire: 86400 };
 
 export interface SmithingItemWeaponTypeProps {
     name: string
