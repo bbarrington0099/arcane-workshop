@@ -6,12 +6,14 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-      - "51212:51212"
+      - "5555:5555"
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - .:/arcane-workshop
+      - /arcane-workshop/node_modules
     env_file:
-      - .env.dev
+      - .env.docker.development
+    environment:
+      - TURBOPACK_WATCH_ROOT=/arcane-workshop
     depends_on:
       - db
 
@@ -20,7 +22,7 @@ services:
     image: postgres:18.1
     restart: always
     env_file:
-      - .env.dev
+      - .env.docker.development
     volumes:
       - postgres_data_dev:/var/lib/postgresql
     ports:

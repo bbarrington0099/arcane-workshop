@@ -1,5 +1,5 @@
 import * as db from './db'
-import * as Prisma from '../generated/prisma/client';
+import * as Prisma from '@prismagen/client';
 
 const OFFICIAL: boolean = true;
 

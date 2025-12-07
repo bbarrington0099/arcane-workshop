@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -15,14 +15,18 @@
     "prisma:migrate": "npx prisma migrate dev --name dev",
     "prisma:seed": "npx prisma db seed",
     "prisma:update": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
-    "prisma:studio": "npx prisma studio --port 51212 --browser none",
+    "prisma:studio": "npx prisma studio --port 5555 --browser none",
     "docker:dev:build": "docker compose -f docker-compose.dev.yml up --build -d",
+    "docker:dev:build:logs": "docker compose -f docker-compose.dev.yml up --build",
     "docker:dev:up": "docker compose -f docker-compose.dev.yml up -d",
+    "docker:dev:up:logs": "docker compose -f docker-compose.dev.yml up",
     "docker:dev:logs": "docker compose -f docker-compose.dev.yml logs -f",
     "docker:dev:exec:app": "docker exec -it arcane-workshop-dev-app",
     "docker:dev:exec:db": "docker exec -it arcane-workshop-dev-postgres",
     "docker:dev:down": "docker compose -f docker-compose.dev.yml down",
-    "docker:dev:clear": "docker compose -f docker-compose.dev.yml down -v"
+    "docker:dev:clear": "docker compose -f docker-compose.dev.yml down -v",
+    "docker:dev:rebuild": "npm run docker:dev:down && npm run docker:dev:build",
+    "docker:dev:rebuild:logs": "npm run docker:dev:down && npm run docker:dev:build:logs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.0.1",
@@ -40,6 +44,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "dotenv": "^17.2.3",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.4",
     "sass": "^1.94.2",

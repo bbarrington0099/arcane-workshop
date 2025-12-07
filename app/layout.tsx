@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Navigation from "./components/Navigation/Navigation";
-import TopMenu from "./components/TopMenu/TopMenu";
+import Navigation from "@components/RootLayout/Navigation/Navigation";
+import TopMenu from "@components/RootLayout/TopMenu/TopMenu";
 
+//@ts-ignore
 import "./globals.scss";
 import styles from "./app.module.scss";
 

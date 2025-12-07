@@ -2,7 +2,7 @@ import { prisma } from '../lib/prisma'
 import * as Prisma from '../generated/prisma/client';
 import * as db from '../lib/db-seed'
 
-async function main() {   
+async function main() {
     await deleteAllOfficialData();
     
     // Add Weapon Types

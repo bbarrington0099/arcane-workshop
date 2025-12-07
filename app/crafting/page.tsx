@@ -1,8 +1,13 @@
-import React from 'react'
+"use cache";
 
-const CraftingPage = () => {
+import { Crafting_Category } from '@prismagen/client';
+import CraftingPageClient from './CraftingPageClient';
+
+const CraftingPage = async () => {
+  const craftingCategories = Object.values(Crafting_Category);
+  
   return (
-    <div>CraftingPage</div>
+    <CraftingPageClient categories={craftingCategories} />
   )
 }
 
