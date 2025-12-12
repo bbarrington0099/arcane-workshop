@@ -1,10 +1,11 @@
 "use cache";
 
 import * as smithingItemReadActions from '@actions/smithingItemReadActions'
-import { Smithing_Item_Weapon_Subtype } from '@prismagen/client'
+import { Smithing_Item_Category, Smithing_Item_Weapon_Subtype } from '@prismagen/client'
 import styles from './SmithingItemWeaponTypes.module.scss'
 import { cacheLife } from 'next/cache';
 import { CACHE_LIFE } from '@lib/db';
+import PathLink from '@components/common/Link/PathLink';
 
 interface Relationship {
   relationshipId: string;
@@ -46,7 +47,10 @@ const SmithingItemWeaponTypes = async () => {
             {relationships.map((relationship) => {
               return (
                 <div className={styles.smithingItemWeaponSubtypeContainer} key={relationship.relationshipId}>
-                  {relationship.subtype.name}
+                  <PathLink
+                    path={`/crafting/craft-item?item-type=${Smithing_Item_Category.WEAPONS}&items=${relationship.relationshipId}`}
+                    label={relationship.subtype.name}
+                  />
                 </div>
               )
             })}

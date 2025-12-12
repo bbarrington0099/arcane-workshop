@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:restart": "curl -X POST http://localhost:3000/__nextjs_restart_dev",
+    "dev:watch": "chokidar \"app/**/*\" --initial --throttle 1000 --command \"npm run dev:restart\"",
+    "dev:full": "concurrently \"npm run dev\" \"npm run dev:watch\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -44,6 +46,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9",
